@@ -37,7 +37,7 @@ import com.symphony.user.DisplayName;
  */
 public class MessageMLParser extends AbstractContentParser<String, EntityJson>{
 	
-	private static final Logger LOG = LoggerFactory.getLogger(PresentationMLHandler.class);
+	private static final Logger LOG = LoggerFactory.getLogger(MessageMLParser.class);
 		
 	static class TagFrame<X extends Tag> extends TextFrame<X> {
 

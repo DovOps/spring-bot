@@ -50,7 +50,7 @@ public abstract class ChannelServiceController {
   * dependencies in the POM, and corresponding Log4j configuration in the
   * 'resources' folder.
   */
- private Logger logger = LoggerFactory.getLogger(BotController.class);
+ private Logger logger = LoggerFactory.getLogger(ChannelServiceController.class);
 
  private final ChannelServiceHandler handler;
 

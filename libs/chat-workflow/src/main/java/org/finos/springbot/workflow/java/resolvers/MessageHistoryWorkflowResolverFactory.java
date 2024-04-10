@@ -26,7 +26,7 @@ public class MessageHistoryWorkflowResolverFactory implements WorkflowResolverFa
 			try {
 				return (Optional<Object>) hist.getLastFromHistory((Class<?>) t, che.action().getAddressable());
 			} catch (Exception e) {
-				LOG.error("Couldn't deserialize historical object: "+t.getName(), e);
+				LOG.error("Couldn't deserialize historical object: {}", t.getName(), e);
 				return Optional.empty();
 			}
 		}

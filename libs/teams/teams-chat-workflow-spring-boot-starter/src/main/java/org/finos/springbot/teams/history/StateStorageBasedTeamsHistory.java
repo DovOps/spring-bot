@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  */
 public class StateStorageBasedTeamsHistory implements TeamsHistory {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(MessageActivityHandler.class);
+	private static final Logger LOG = LoggerFactory.getLogger(StateStorageBasedTeamsHistory.class);
 	
 	public final TeamsStateStorage tss;
 
@@ -67,7 +67,7 @@ public class StateStorageBasedTeamsHistory implements TeamsHistory {
 			}
 			
 			if (firstOnly) {
-				LOG.error("Should have found object of type "+type+" inside "+map);
+				LOG.error("Should have found object of type {} inside {}", type, map);
 				return Optional.empty();
 			}
 

@@ -117,7 +117,7 @@ public class TimeFinder extends AbstractActionConsumer  {
 			instantTimeForReminder = sdf.parse(time.value()).toInstant();
 			return instantTimeForReminder.atZone(ZoneId.systemDefault()).toLocalDateTime();
 		} catch (ParseException e) {
-			LOG.warn("Couldn't parse timex: " + time.value());
+			LOG.warn("Couldn't parse timex: {}", time.value());
 			return null;
 		}
 	}

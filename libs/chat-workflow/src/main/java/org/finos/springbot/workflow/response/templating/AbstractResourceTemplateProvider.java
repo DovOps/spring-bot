@@ -33,9 +33,9 @@ public abstract class AbstractResourceTemplateProvider<T, F, V extends DataRespo
 		F template = StringUtils.hasText(templateName) ? getTemplateForName(templateName) : null;
 
 		if (template == null) {
-			LOG.info("Reverting to default template for " + t);
+			LOG.info("Reverting to default template for {}", __P__.<error>);
 			template = getDefaultTemplate(t);
-			LOG.info("Template: \n"+template);
+			LOG.info("Template: \n{}", template);
 		}
 		
 		T out = applyTemplate(template, t);
@@ -49,7 +49,7 @@ public abstract class AbstractResourceTemplateProvider<T, F, V extends DataRespo
 		try {
 			return resolveTemplate(name);
 		} catch (Exception e) {
-			LOG.debug("Couldn't find template: "+name);
+			LOG.debug("Couldn't find template: {}", name);
 			return null;
 		}
 	}

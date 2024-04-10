@@ -187,15 +187,15 @@ public class TeamsResponseHandler implements ResponseHandler<ResourceResponse>, 
  
 	private BiFunction<? super ResourceResponse, Throwable, ResourceResponse> handleErrorAndStorage(Object out, TeamsAddressable address, Map<String, Object> data, Response t) {
 		return (rr, e) -> {
-				if (e != null) {					
-					LOG.error("Error message for stream id {} , message: {} ", address.getKey() , e.getMessage());
+				if (e != null) {
+					LOG.error("Error message for stream id {} , message: {} ", address.getKey(), e.getMessage(), e);
 					if (out instanceof ObjectNode){
 						try {
-							LOG.error("json:\n"+new ObjectMapper().writeValueAsString(out));
+							LOG.error("json:\n{}", new ObjectMapper().writeValueAsString(out));
 						} catch (JsonProcessingException e1) {
 						}
 					} else {
-						LOG.error("message:\n"+out);
+						LOG.error("message:\n{}", out);
 					} 
 					
 					if(!(t  instanceof ErrorResponse)) {

@@ -82,7 +82,7 @@ public class MessageActivityHandler extends ActivityHandler {
 				Action.CURRENT_ACTION.set(Action.NULL_ACTION);
 			}
 		} catch (Exception e) {
-			LOG.error("Couldn't handle event "+turnContext, e);
+			LOG.error("Couldn't handle event {}", turnContext, e);
 		} finally {
 			CurrentTurnContext.CURRENT_CONTEXT.set(null);
 		}

@@ -94,7 +94,7 @@ public class TimedAlerter {
 		//if (leaderService.isLeader(self)) {
 			Set<Addressable> allRooms = r.getAllAddressables();
 			allRooms.stream().forEach(s -> count[0] += action.apply(s));
-			LOG.info("TimedAlerter processed "+allRooms.size()+" streams ");
+			LOG.info("TimedAlerter processed {} streams ", allRooms.size());
 //		} else {
 //			LOG.info("Not leader, sleeping");
 //		}
@@ -147,7 +147,7 @@ public class TimedAlerter {
 				}
 			}			
 		} catch (Exception e) {
-			LOG.error("Coulnd't process feed" + f.getName(), e);
+			LOG.error("Coulnd't process feed{}", f.getName(), e);
 		}
 		return count;
 	}

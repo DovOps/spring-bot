@@ -32,7 +32,7 @@ import com.rometools.rome.io.FeedException;
 @Controller
 public class FeedController {
 
-	public static final Logger LOG = LoggerFactory.getLogger(FeedList.class);
+	public static final Logger LOG = LoggerFactory.getLogger(FeedController.class);
 
 	@Autowired
 	SymphonyHistory hist;

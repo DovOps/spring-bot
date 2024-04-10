@@ -51,7 +51,7 @@ public class Scheduler {
   //      if (leaderService.isLeader(self)) {
             Set<Chat> allRooms = rooms.getAllChats();
 			allRooms.forEach(s -> action.accept(s));
-            LOG.info("TimedAlerter processed " + allRooms.size() + " streams ");
+            LOG.info("TimedAlerter processed {} streams ", allRooms.size());
 //        } else {
 //            LOG.info("Not leader, sleeping");
 //        }

@@ -87,7 +87,7 @@ public class ElementsHandler {
 						try {
 							c.accept(ea);
 						} catch (Exception ee) {
-							LOG.error("Failed to handle consumer "+c, ee);
+							LOG.error("Failed to handle consumer {}", c, ee);
 						}
 					}
 				} finally {
@@ -95,7 +95,7 @@ public class ElementsHandler {
 				}	
 			};
 		} catch (Exception e) {
-			LOG.error("Couldn't handle event "+event, e);
+			LOG.error("Couldn't handle event {}", event, e);
 		}
 	}
 

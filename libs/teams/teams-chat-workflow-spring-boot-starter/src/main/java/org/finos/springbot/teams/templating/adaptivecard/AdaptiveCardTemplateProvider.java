@@ -66,7 +66,7 @@ public class AdaptiveCardTemplateProvider extends AbstractResourceTemplateProvid
 		} else if (AdaptiveCardPassthrough.isAdaptiveCard(t)) {
 			AdaptiveCardPassthrough passthrough = (AdaptiveCardPassthrough) t.getFormObject();
 			JsonNode template = passthrough.getJsonNode();
-			LOG.info("JsonNode Template: \n" + template.toPrettyString());
+			LOG.info("JsonNode Template: \n{}", template.toPrettyString());
 
 			return template;
 		} else {

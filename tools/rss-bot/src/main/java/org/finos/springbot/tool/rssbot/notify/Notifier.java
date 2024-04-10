@@ -55,7 +55,7 @@ public class Notifier implements InitializingBean {
 	public void afterPropertiesSet() throws Exception {
 		if (properties.getObservationStreamId() != null) {
 			observationRoom = new SymphonyRoom("RSS Bot Observations", properties.getObservationStreamId());
-			LOG.info("Observation room set up: "+observationRoom);
+			LOG.info("Observation room set up: {}", observationRoom);
 		} else {
 			LOG.warn("No observation room configured");
 		}

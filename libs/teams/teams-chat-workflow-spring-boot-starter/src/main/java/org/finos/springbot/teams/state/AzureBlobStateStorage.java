@@ -41,7 +41,7 @@ import com.azure.storage.blob.options.FindBlobsOptions;
  */
 public class AzureBlobStateStorage extends AbstractStateStorage {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(MessageActivityHandler.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AzureBlobStateStorage.class);
 	
 	private final BlobContainerClient bcc;
 	private final BlobServiceClient bsc;
@@ -179,7 +179,7 @@ public class AzureBlobStateStorage extends AbstractStateStorage {
 				EntityJson data = ejc.readValue(json);
 				return data;
 			} catch (Exception e) {
-				LOG.error("Couldn't retreive blob: "+name);
+				LOG.error("Couldn't retreive blob: {}", name);
 				return null;
 			}
 		}
@@ -198,7 +198,7 @@ public class AzureBlobStateStorage extends AbstractStateStorage {
 					Iterator<TaggedBlobItem> underlying = pi.iterator();		
 					return new DuplicateCheckingIterator(underlying);
 				} catch (Exception e) {
-					LOG.error("Couldn't retrieve from AzureBlobStorage with tags "+tags, e) ;
+					LOG.error("Couldn't retrieve from AzureBlobStorage with tags {}", tags, e) ;
 					return Collections.emptyIterator();
 				}
 			}
@@ -222,7 +222,7 @@ public class AzureBlobStateStorage extends AbstractStateStorage {
 			if (e.getResponse().getStatusCode() == HttpStatus.NOT_FOUND.value()) {
 				return Optional.empty();
 			}
-			LOG.warn("Couldn't retrieve: "+file, e);
+			LOG.warn("Couldn't retrieve: {}", file, e);
 			return Optional.empty();
 		}
 	}

@@ -88,7 +88,7 @@ public class SymphonyResponseHandler implements ResponseHandler<V4Message>, Appl
 				}
 
 				data = dataHandler.formatData((DataResponse) t);
-				LOG.info("JSON: \n"+ data);
+				LOG.info("JSON: \n{}", data);
 
 				return sendResponse(template, attachment, data, t.getAddress(), filename);
 			}
@@ -126,9 +126,9 @@ public class SymphonyResponseHandler implements ResponseHandler<V4Message>, Appl
 				return messagesApi.send(streamId, out);
 			}
 		} catch (Exception e) {
-			LOG.error(e.getMessage());
-			LOG.error("message:\n"+template);
-			LOG.error("json:\n"+data);
+			LOG.error("", e);
+			LOG.error("message:\n{}", template);
+			LOG.error("json:\n{}", data);
 			initErrorHandler();
 			eh.handleError(e);
 		}

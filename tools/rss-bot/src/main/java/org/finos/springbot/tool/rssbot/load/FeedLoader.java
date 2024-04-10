@@ -64,7 +64,7 @@ public class FeedLoader {
 				f.setProxy(proxyProperties);
 				return f;
 			} catch (Exception e) {
-				LOG.info("Couldn't get feed "+url+" with "+proxyProperties.getHost());
+				LOG.info("Couldn't get feed {} with {}", url, proxyProperties.getHost());
 				last = e;
 			}
 		}

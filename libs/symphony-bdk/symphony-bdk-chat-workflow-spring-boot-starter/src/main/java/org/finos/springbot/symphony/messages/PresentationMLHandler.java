@@ -71,7 +71,7 @@ public class PresentationMLHandler implements ApplicationListener<RealTimeEvent<
 				}
 			}
 		} catch (Exception e) {
-			LOG.error("Couldn't handle event "+t, e);
+			LOG.error("Couldn't handle event {}", t, e);
 		}
 	}
 

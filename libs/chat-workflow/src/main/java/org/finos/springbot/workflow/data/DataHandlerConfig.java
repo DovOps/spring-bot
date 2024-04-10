@@ -74,7 +74,7 @@ public class DataHandlerConfig {
 					// nosemgrep
 					return Class.forName(s);
 				} catch (ClassNotFoundException e) {
-					LOG.error("Couldn't instantiate: "+s, e);
+					LOG.error("Couldn't instantiate: {}", s, e);
 					return null;
 				}
 			})
