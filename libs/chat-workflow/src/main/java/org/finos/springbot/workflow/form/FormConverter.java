@@ -97,11 +97,11 @@ public class FormConverter {
 		if (ctx == null) {
 			ctx = new ArrayList<>(index+1);
 		}
-		if (ctx instanceof ArrayList) {
-			while (((List)ctx).size() <= index) {
-				((List)ctx).add(null);
+		if (ctx instanceof ArrayList<?> list) {
+			while (list.size() <= index) {
+				list.add(null);
 			}
-			return (List<Object>) ctx;
+			return list;
 		} else  {
 			throw new UnsupportedOperationException("Clash in "+ctx+" which should be array, "+originalKey);
 		}

@@ -49,8 +49,7 @@ public class MessageMatcher {
 			if (message.startsWith(first)) {
 				LOG.debug("Matched {} with start of {}", first, pattern);
 				
-				if (first instanceof WildcardContent) {
-					WildcardContent wc = (WildcardContent) first;
+				if (first instanceof WildcardContent wc) {
 					Class<? extends Content> contentClass = (Class<? extends Content>) wc.expected;
 					Optional<? extends Content> matchingFirst = message.getNth(contentClass, 0);
 					if (matchingFirst.isPresent()) {
@@ -79,16 +78,16 @@ public class MessageMatcher {
 	}
 	
 	private boolean canNull(Content first) {
-		if (first instanceof WildcardContent) {
-			return !((WildcardContent)first).chatVariable.required();
+		if (first instanceof WildcardContent content) {
+			return !content.chatVariable.required();
 		} else {
 			return false;
 		}
 	}
 	
 	private boolean canSkip(Content first) {
-		if (first instanceof WildcardContent) {
-			switch (((WildcardContent) first).arity) {
+		if (first instanceof WildcardContent content) {
+			switch (content.arity) {
 			case LIST:
 				return true;
 			case OPTIONAL:
@@ -104,8 +103,8 @@ public class MessageMatcher {
 	}
 	
 	private boolean canMulti(Content first) {
-		if (first instanceof WildcardContent) {
-			switch (((WildcardContent) first).arity) {
+		if (first instanceof WildcardContent content) {
+			switch (content.arity) {
 			case LIST:
 				return true;
 			case OPTIONAL:
@@ -122,8 +121,8 @@ public class MessageMatcher {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private boolean isEmpty(Content p) {
-		if (p instanceof OrderedContent) {
-			for (Iterator<Content>	 iterator = ((OrderedContent)p).iterator(); iterator.hasNext();) {
+		if (p instanceof OrderedContent<?> content) {
+			for (Iterator<Content>	 iterator = content.iterator(); iterator.hasNext();) {
 				Content c = iterator.next();
 				if (!isEmpty(c)) {
 					return false;
@@ -138,7 +137,7 @@ public class MessageMatcher {
 
 	private <X extends Content> X removeFirst(OrderedContent<X> c1) {
 		if (c1.size() > 0) {
-			return c1.getContents().get(0);
+			return c1.getContents().getFirst();
 		} else {
 			return null;
 		}

@@ -35,7 +35,7 @@ public class FormDataArgumentWorkflowResolverFactory implements WorkflowResolver
 	@Override
 	public WorkflowResolver createResolver(ChatHandlerExecutor che) {
 		Action originatingAction = che.action();
-		if ((originatingAction instanceof FormAction) && (((FormAction) originatingAction).getFormData() != null)) {
+		if ((originatingAction instanceof FormAction action) && (action.getFormData() != null)) {
 			return new FormDataWorkflowResolver(originatingAction);
 		} else {
 			return new NullWorkflowResolver();

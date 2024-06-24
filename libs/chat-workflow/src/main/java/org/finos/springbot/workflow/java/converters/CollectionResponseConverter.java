@@ -24,11 +24,11 @@ public class CollectionResponseConverter extends AbstractResponseConverter imple
 
 	@Override
 	public void accept(Object t, ChatHandlerExecutor u) {
-		if (t instanceof Collection) {
+		if (t instanceof Collection<?> collection) {
 			ResponseConverters rcs = ctx.getBean(ResponseConverters.class);
-			((Collection<?>) t).stream().forEach(item -> rcs.accept(item, u));
-		} else if (t instanceof Response){
-			rh.accept((Response) t);
+			collection.stream().forEach(item -> rcs.accept(item, u));
+		} else if (t instanceof Response response){
+			rh.accept(response);
 		}	
 	}
 

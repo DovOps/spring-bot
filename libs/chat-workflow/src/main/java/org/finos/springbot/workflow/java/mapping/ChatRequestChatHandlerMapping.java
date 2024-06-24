@@ -126,7 +126,7 @@ public class ChatRequestChatHandlerMapping extends AbstractSpringComponentHandle
 			ChatVariable cv = m.getParameterAnnotation(ChatVariable.class);
 			Type t = m.getGenericParameterType();
 
-			if ((t instanceof Class) && (Content.class.isAssignableFrom((Class<?>) t))) {
+			if ((t instanceof Class<?> class1) && (Content.class.isAssignableFrom(class1))) {
 				return new WildcardContent(cv, getContentClassFromType(t), Arity.ONE);
 			} else if (t.getTypeName().startsWith(Optional.class.getName())) {
 				ParameterizedType pt = (ParameterizedType) t;
@@ -144,8 +144,8 @@ public class ChatRequestChatHandlerMapping extends AbstractSpringComponentHandle
 
 	@SuppressWarnings("unchecked")
 	protected Class<? extends Content> getContentClassFromType(Type t) {
-		if ((t instanceof Class) && (Content.class.isAssignableFrom((Class<?>) t))) {
-			return (Class<? extends Content>) t;
+		if ((t instanceof Class<?> class1) && (Content.class.isAssignableFrom(class1))) {
+			return class1;
 		} else {
 			throw new UnsupportedOperationException(
 					"ChatVariables can only be used for Content subtypes: " + t.getTypeName());
@@ -168,26 +168,26 @@ public class ChatRequestChatHandlerMapping extends AbstractSpringComponentHandle
 			@Override
 			public ChatHandlerExecutor getExecutor(Action a) {
 
-				if (a instanceof SimpleMessageAction) {
+				if (a instanceof SimpleMessageAction action) {
 
-					if (!canBePerformedHere((SimpleMessageAction) a)) {
+					if (!canBePerformedHere(action)) {
 						return null;
 					}
 
-					return matchesSimpleMessageAction((SimpleMessageAction) a);
+					return matchesSimpleMessageAction(action);
 				}
 
-				if (a instanceof FormAction) {
+				if (a instanceof FormAction action) {
 
-					if (Objects.nonNull(((FormAction)a).getData().get("form")) && !HelpPage.class.isAssignableFrom(((FormAction) a).getData().get("form").getClass())) {
+					if (Objects.nonNull(action.getData().get("form")) && !HelpPage.class.isAssignableFrom(action.getData().get("form").getClass())) {
 						return null;
 					}
 
-					if (!canBePerformedHere((FormAction) a)) {
+					if (!canBePerformedHere(action)) {
 						return null;
 					}
 
-					return matchesFormAction((FormAction) a);
+					return matchesFormAction(action);
 				}
 
 				return null;

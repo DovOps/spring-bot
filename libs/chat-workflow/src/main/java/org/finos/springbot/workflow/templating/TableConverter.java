@@ -21,9 +21,9 @@ public class TableConverter<X> extends AbstractTableConverter<X> {
 		
 	@Override
 	public boolean canConvert(Field ctx, Type t) {
-		if (t instanceof ParameterizedType) {
-			Type rawType = ((ParameterizedType)t).getRawType();
-			return (rawType instanceof Class<?>) && Collection.class.isAssignableFrom((Class<?>) rawType);
+		if (t instanceof ParameterizedType type) {
+			Type rawType = type.getRawType();
+			return (rawType instanceof Class<?> c) && Collection.class.isAssignableFrom(c);
 		} else {
 			return false;
 		}

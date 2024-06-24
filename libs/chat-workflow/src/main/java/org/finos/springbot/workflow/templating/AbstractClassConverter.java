@@ -16,7 +16,7 @@ public abstract class AbstractClassConverter<X> extends AbstractSimpleTypeConver
 	@Override
 	public boolean canConvert(Field ctx, Type t) {
 		for (Class<?> class1 : forClass) {
-			if ((t instanceof Class) && (class1.isAssignableFrom((Class<?>) t))) {
+			if ((t instanceof Class<?> class2) && (class1.isAssignableFrom(class2))) {
 				return true;
 			}
 		}

@@ -25,9 +25,7 @@ public class EchoConsumer implements ActionConsumer {
 
 	@Override
 	public void accept(Action event) {
-		if (event instanceof SimpleMessageAction) {
-			// reply with original content
-			SimpleMessageAction in = (SimpleMessageAction) event;
+		if (event instanceof SimpleMessageAction in) {
 			// reply to the room the message came from
 			Addressable from = in.getAddressable();
 			Message msg = in.getMessage();

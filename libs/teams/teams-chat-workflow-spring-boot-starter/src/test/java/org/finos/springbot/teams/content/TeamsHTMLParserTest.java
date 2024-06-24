@@ -45,18 +45,20 @@ public class TeamsHTMLParserTest {
 	
 	@Test
 	public void testListAndBlockQuoteMarkup() {
-		Message m = parser.apply("<p>this <strong>is a piece </strong></p>\n"
-				+ "<ol>\n"
-				+ "<li><strong>of text</strong><br>\n"
-				+ "</li><li>that is <br>\n"
-				+ "</li><li>formatted<br>\n"
-				+ "</li></ol>\n"
-				+ "<blockquote>\n"
-				+ "<p>To be or not to be<br>\n"
-				+ "</p>\n"
-				+ "</blockquote>\n"
-				+ "<p><br>\n"
-				+ "</p>", null);
+		Message m = parser.apply("""
+				<p>this <strong>is a piece </strong></p>
+				<ol>
+				<li><strong>of text</strong><br>
+				</li><li>that is <br>
+				</li><li>formatted<br>
+				</li></ol>
+				<blockquote>
+				<p>To be or not to be<br>
+				</p>
+				</blockquote>
+				<p><br>
+				</p>\
+				""", null);
 		
 		OrderedList ul = m.getNth(OrderedList.class, 0).get();
 		Assertions.assertEquals(3, ul.getContents().size());
@@ -68,12 +70,14 @@ public class TeamsHTMLParserTest {
 	
 	@Test
 	public void testMixedBlockQuoteParse() {
-		Message m = parser.apply("<blockquote>\n"
-				+ "<ul>\n"
-				+ "<li>one</li><li>two</li><li>three</li></ul>\n"
-				+ "<p>this is another para</p>\n"
-				+ "</blockquote>", null);
-		Assertions.assertTrue(m.getContents().get(0) instanceof BlockQuote);
+		Message m = parser.apply("""
+				<blockquote>
+				<ul>
+				<li>one</li><li>two</li><li>three</li></ul>
+				<p>this is another para</p>
+				</blockquote>\
+				""", null);
+		Assertions.assertTrue(m.getContents().getFirst() instanceof BlockQuote);
 		BlockQuote bq = m.getNth(BlockQuote.class, 0).get();
 		UnorderedList ul = bq.getNth(UnorderedList.class, 0).get();
 		Assertions.assertEquals(3, ul.size());
@@ -99,7 +103,7 @@ public class TeamsHTMLParserTest {
 		
 		Assertions.assertEquals(3, mentions1.size());
 		Assertions.assertEquals("Suresh Rupnar", mentions1.get(1).getName());
-		Assertions.assertEquals("abc123", mentions1.get(0).getKey());
+		Assertions.assertEquals("abc123", mentions1.getFirst().getKey());
 		Assertions.assertEquals("bhhs", mentions1.get(2).getKey());
 		
 		

@@ -52,8 +52,8 @@ public class TeamsChannel implements Chat, TeamsChat, TeamsMention {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof TeamsChannel) {
-			return this.key.equals(((TeamsChannel) obj).getKey());
+		if (obj instanceof TeamsChannel channel) {
+			return this.key.equals(channel.getKey());
 		} else {
 			return false;
 		}

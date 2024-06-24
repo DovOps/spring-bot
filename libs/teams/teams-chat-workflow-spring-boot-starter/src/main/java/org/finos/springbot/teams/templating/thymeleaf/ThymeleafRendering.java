@@ -99,7 +99,7 @@ public class ThymeleafRendering implements TableRendering<String> {
 	}
 	
 	private String indent(int n) {
-		return "\n"+String.format("%"+n+"s", "");
+		return "\n"+("%" + n + "s").formatted("");
 	}
 
 	@Override

@@ -68,10 +68,10 @@ public class LegacyFormatModule extends Module {
   							TreeNode id = tn.get("id");
 							TreeNode value = tn.get("value");
 							
-							if (id instanceof TextNode) {
-								return new HashTag(((TextNode) id).asText());
-							} else if (value instanceof TextNode) {
-								return new HashTag(((TextNode) value).asText());
+							if (id instanceof TextNode node) {
+								return new HashTag(node.asText());
+							} else if (value instanceof TextNode node) {
+								return new HashTag(node.asText());
 							} else {
 								throw new InvalidFormatException(p, "Couldn't create HashTag", null, HashTag.class);
 							}

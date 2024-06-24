@@ -146,7 +146,7 @@ public class SymphonyConversationsImpl implements SymphonyConversations, Initial
 	public SymphonyUser loadUserById(Long userId) {
 		List<UserV2> users = userService.listUsersByIds(Collections.singletonList(userId), localPodLookup, true);
 		if (users.size() == 1) {
-			UserV2 user = users.get(0);
+			UserV2 user = users.getFirst();
 			return new SymphonyUser(userId, user.getDisplayName(),user.getEmailAddress());
 		} else {
 			throw new SymphonyException("User not found: "+userId);
@@ -155,10 +155,10 @@ public class SymphonyConversationsImpl implements SymphonyConversations, Initial
 	
 	@Override
 	public String getStreamFor(SymphonyAddressable a) {
-		if (a instanceof SymphonyUser) {
-			return getStreamIdForUser((SymphonyUser) a);
-		} else if (a instanceof SymphonyRoom) {
-			return ((SymphonyRoom) a).getKey();
+		if (a instanceof SymphonyUser user) {
+			return getStreamIdForUser(user);
+		} else if (a instanceof SymphonyRoom room) {
+			return room.getKey();
 		} else {
 			throw new SymphonyException("What is this? "+a);
 		}
@@ -184,7 +184,7 @@ public class SymphonyConversationsImpl implements SymphonyConversations, Initial
 	public SymphonyUser loadUserByUsername(String username) {
 		List<UserV2> users = userService.listUsersByUsernames(Collections.singletonList(username));
 		if (users.size() == 1) {
-			UserV2 user = users.get(0);
+			UserV2 user = users.getFirst();
 			return new SymphonyUser(user.getId(), user.getDisplayName(),user.getEmailAddress());
 		} else {
 			throw new SymphonyException("User not found: "+username);
@@ -195,7 +195,7 @@ public class SymphonyConversationsImpl implements SymphonyConversations, Initial
 	public SymphonyUser loadUserByEmail(String name) {
 		List<UserV2> users = userService.listUsersByEmails(Collections.singletonList(name), localPodLookup, true);
 		if (users.size() == 1) {
-			UserV2 user = users.get(0);
+			UserV2 user = users.getFirst();
 			return new SymphonyUser(user.getId(), user.getDisplayName(),user.getEmailAddress());
 		} else {
 			throw new SymphonyException("User not found: "+name);
@@ -236,9 +236,9 @@ public class SymphonyConversationsImpl implements SymphonyConversations, Initial
 		
 		SymphonyRoom theRoom = null;
 	
-		if (r instanceof SymphonyRoom) {
-			if (((SymphonyRoom) r).getKey() != null) {
-				theRoom = (SymphonyRoom) r;
+		if (r instanceof SymphonyRoom room) {
+			if (room.getKey() != null) {
+				theRoom = room;
 			} else {
 				theRoom = loadRoomByName(name);
 			} 

@@ -57,8 +57,7 @@ public interface Table extends Content {
 		public boolean equals(Object obj) {
 			if (this == obj) {
 				return true;
-			} else if (obj instanceof Table) {
-				Table other = (Table) obj;
+			} else if (obj instanceof Table other) {
 				return Objects.equals(columns, other.getColumnNames()) && Objects.equals(data, other.getData());
 			} else {
 				return false;

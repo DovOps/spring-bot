@@ -22,8 +22,8 @@ public abstract class AbstractTableActionConsumer extends AbstractActionConsumer
 
 	@Override
 	public void accept(Action t) {
-		if (t instanceof FormAction) {
-			acceptFormAction((FormAction)t);
+		if (t instanceof FormAction action) {
+			acceptFormAction(action);
 		}
 	}
 

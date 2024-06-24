@@ -31,8 +31,8 @@ public abstract class AbstractClassWorkflowResolver implements WorkflowResolver 
 			t = getOptionalType(t);
 		}
 		
-		if (t instanceof Class<?>) {
-			return canResolve((Class<?>) t);
+		if (t instanceof Class<?> class1) {
+			return canResolve(class1);
 		}
 		
 		return false;
@@ -56,15 +56,15 @@ public abstract class AbstractClassWorkflowResolver implements WorkflowResolver 
  		if (isOptional(t)) {
  			t = getOptionalType(t);
  			
- 			if (t instanceof Class<?>) {
- 				Optional<Object> out = resolve((Class<?>) t);
+ 			if (t instanceof Class<?> class1) {
+ 				Optional<Object> out = resolve(class1);
  				return Optional.of(out);
  			} else {
  				return Optional.empty();
  			}
  		} else {
- 			if (t instanceof Class<?>) {
- 				return resolve((Class<?>) t);
+ 			if (t instanceof Class<?> class1) {
+ 				return resolve(class1);
  			} else {
  				return Optional.empty();
  			}

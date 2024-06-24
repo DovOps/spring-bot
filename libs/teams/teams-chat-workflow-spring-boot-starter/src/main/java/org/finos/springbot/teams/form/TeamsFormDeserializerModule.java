@@ -67,8 +67,8 @@ public class TeamsFormDeserializerModule extends Module {
 								throws IOException, JsonProcessingException {
 							
 							TreeNode tn = p.readValueAsTree();
-							if (tn instanceof TextNode) {
-								return tc.getUserById(((TextNode)tn).asText());
+							if (tn instanceof TextNode node) {
+								return tc.getUserById(node.asText());
 							} else {
 								return null;
 							}

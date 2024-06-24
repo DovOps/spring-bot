@@ -65,8 +65,8 @@ public class MessagePartWorkflowResolverFactory implements WorkflowResolverFacto
 	public WorkflowResolver createResolver(ChatHandlerExecutor che) {
 		Action a = che.action();
 		
-		if (a instanceof SimpleMessageAction) {
-			final Map<Class<?>, Deque<Object>> parameterBuckets = setupParameterBuckets(((SimpleMessageAction) a).getMessage());
+		if (a instanceof SimpleMessageAction action) {
+			final Map<Class<?>, Deque<Object>> parameterBuckets = setupParameterBuckets(action.getMessage());
 			return new ContentWorkflowResolver(parameterBuckets);
 		} else {
 			return new NullWorkflowResolver();

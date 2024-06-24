@@ -28,8 +28,8 @@ public class HeaderDetails {
 		public String convert(Object x) {
 			if (x instanceof Map) {
 				return (String) ((Map<String, Object>)x).get("name");
-			} else if (x instanceof String) {
-				return (String) x;
+			} else if (x instanceof String string) {
+				return string;
 			} else {
 				return null;
 			}

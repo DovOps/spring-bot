@@ -38,8 +38,7 @@ public class RoomWelcomeEventConsumer implements ActionConsumer {
 
 	@Override
 	public void accept(Action t) {
-		if (t instanceof MemberAction) {
-			MemberAction ma = (MemberAction) t;
+		if (t instanceof MemberAction ma) {
 			if (ma.getType() == Type.ADDED) {
 				Message out = welcomeMessageBuilder.apply(ma);
 				MessageResponse mr = new MessageResponse(ma.getAddressable(), out);

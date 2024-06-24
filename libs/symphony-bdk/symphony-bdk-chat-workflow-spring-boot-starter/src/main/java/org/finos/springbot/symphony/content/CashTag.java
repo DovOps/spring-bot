@@ -34,7 +34,7 @@ public final class CashTag extends Security implements Tag {
 
 	@Override
 	public String getName() {
-		TaxonomyElement firstId = getId().get(0);
+		TaxonomyElement firstId = getId().getFirst();
 		return firstId.getValue();
 	}
 	

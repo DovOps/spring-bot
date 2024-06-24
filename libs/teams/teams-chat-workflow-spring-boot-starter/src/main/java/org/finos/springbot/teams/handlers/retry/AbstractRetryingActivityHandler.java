@@ -30,9 +30,9 @@ public abstract class AbstractRetryingActivityHandler implements ActivityHandler
 	}
 
 	protected boolean isTooManyRequest(Throwable e) {
-		if (e instanceof CompletionException
-				&& ((CompletionException) e).getCause() instanceof ErrorResponseException) {
-			ErrorResponseException ere = (ErrorResponseException) ((CompletionException) e).getCause();
+		if (e instanceof CompletionException exception
+				&& exception.getCause() instanceof ErrorResponseException) {
+			ErrorResponseException ere = (ErrorResponseException) exception.getCause();
 			retrofit2.Response<ResponseBody> response = ere.response();
 			return (response.code() == HttpStatus.TOO_MANY_REQUESTS.value());
 		} else {

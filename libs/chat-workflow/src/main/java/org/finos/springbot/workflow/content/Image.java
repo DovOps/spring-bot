@@ -42,8 +42,7 @@ public interface Image extends Content {
 		public boolean equals(Object obj) {
 			if (this == obj) {
 				return true;
-			} else if (obj instanceof Image) {
-				Image other = (Image) obj;
+			} else if (obj instanceof Image other) {
 				return Objects.equals(alt, other.getAlt()) && Objects.equals(url, other.getUrl());
 			} else {
 				return false;

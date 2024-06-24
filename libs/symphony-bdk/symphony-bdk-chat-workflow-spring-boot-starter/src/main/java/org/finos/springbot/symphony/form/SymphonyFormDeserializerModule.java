@@ -70,11 +70,11 @@ public class SymphonyFormDeserializerModule extends Module {
 							if (tn.isArray() && (tn.size() > 0)) {
 								long ul = ((LongNode) tn.get(0)).asLong();
 								return ac.getUserById(""+ul);
-							}else if (tn instanceof LongNode) {
-								long ul = ((LongNode) tn).asLong();
+							}else if (tn instanceof LongNode node) {
+								long ul = node.asLong();
 								return ac.getUserById(""+ul);
-							}else if (tn instanceof TextNode) {
-								long ul = ((TextNode)tn).asLong();
+							}else if (tn instanceof TextNode node) {
+								long ul = node.asLong();
 								return ac.getUserById(""+ul);
 							} else {
 								return null;

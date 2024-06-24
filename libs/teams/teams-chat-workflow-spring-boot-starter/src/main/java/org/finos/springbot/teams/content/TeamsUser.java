@@ -39,8 +39,8 @@ public final class TeamsUser implements User, TeamsMention, TeamsAddressable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof TeamsUser) {
-			return this.key.equals(((TeamsUser) obj).getKey());
+		if (obj instanceof TeamsUser user) {
+			return this.key.equals(user.getKey());
 		} else {
 			return false;
 		}

@@ -51,11 +51,9 @@ public class MessageMLParser extends AbstractContentParser<String, EntityJson>{
 
 		@Override
 		public X getContents() {
-			if ((contents instanceof SymphonyUser) && (contents.getName()==null)) {
-				SymphonyUser su = (SymphonyUser) contents;
+			if ((contents instanceof SymphonyUser su) && (contents.getName()==null)) {
 				su.getId().add(new DisplayName(bufferWithoutPrefix()));
-			} else if ((contents instanceof SymphonyRoom) && (contents.getName() == null)) {
-				SymphonyRoom sr = (SymphonyRoom) contents;
+			} else if ((contents instanceof SymphonyRoom sr) && (contents.getName() == null)) {
 				sr.getId().add(new RoomName(bufferWithoutPrefix()));
 			}
 			
@@ -118,16 +116,16 @@ public class MessageMLParser extends AbstractContentParser<String, EntityJson>{
 					} else if (isStartTag(qName, attributes)) {
 						String dataEntityId = attributes.getValue("data-entity-id");
 						Object o = jsonObjects.get(dataEntityId);
-						if (o instanceof SymphonyUser) {
-							push(new TagFrame<SymphonyUser>(qName, (SymphonyUser) o));
-						} else if (o instanceof HashTag) {
-							push(new TagFrame<HashTag>(qName, (HashTag) o));
-						} else if (o instanceof CashTag) {
-							push(new TagFrame<CashTag>(qName, (CashTag) o));
-						} else if (o instanceof Taxonomy
-								&& !((Taxonomy) o).getId().isEmpty()
-								&& ((Taxonomy) o).getId().get(0) instanceof HashTag) {
-							push(new TagFrame<HashTag>(qName, (HashTag) ((Taxonomy) o).getId().get(0)));
+						if (o instanceof SymphonyUser user) {
+							push(new TagFrame<SymphonyUser>(qName, user));
+						} else if (o instanceof HashTag tag) {
+							push(new TagFrame<HashTag>(qName, tag));
+						} else if (o instanceof CashTag tag) {
+							push(new TagFrame<CashTag>(qName, tag));
+						} else if (o instanceof Taxonomy taxonomy
+								&& !taxonomy.getId().isEmpty()
+								&& taxonomy.getId().getFirst() instanceof HashTag) {
+							push(new TagFrame<HashTag>(qName, (HashTag) taxonomy.getId().getFirst()));
 						} else {
 							throw new UnsupportedOperationException();
 						}
@@ -138,8 +136,8 @@ public class MessageMLParser extends AbstractContentParser<String, EntityJson>{
 					} else if (isStartList(qName, attributes)) {
 						push(new ListFrame(qName));
 					} else if (isStartRow(qName, attributes)) {
-						if (top instanceof TableFrame) {
-							((TableFrame)top).newRow();
+						if (top instanceof TableFrame frame) {
+							frame.newRow();
 						} else {
 							throw new UnsupportedOperationException();
 						}
@@ -210,8 +208,8 @@ public class MessageMLParser extends AbstractContentParser<String, EntityJson>{
 
 				@Override
 				public void characters(char[] ch, int start, int length) throws SAXException {
-					if (top instanceof TextFrame) {
-						((TextFrame<?>) top).push(ch, start, length);
+					if (top instanceof TextFrame<?> frame) {
+						frame.push(ch, start, length);
 					} else {
 						String content = new String(ch, start, length);
 						if (!content.trim().isEmpty()) {

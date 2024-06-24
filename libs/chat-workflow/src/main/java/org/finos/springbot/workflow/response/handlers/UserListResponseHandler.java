@@ -32,22 +32,21 @@ public class UserListResponseHandler implements ResponseHandler<Void> {
 
 	@Override
 	public Void apply(Response t) {
-		if (t instanceof WorkResponse) {
-			WorkResponse wr = (WorkResponse) t;
-			Class<?> c = ((WorkResponse) t).getFormClass();
+		if (t instanceof WorkResponse wr) {
+			Class<?> c = wr.getFormClass();
 			
 			RequiresUserList rcl = c.getAnnotation(RequiresUserList.class);
 			if (rcl != null) {
 				
 				Addressable a = t.getAddress();
 				
-				if (a instanceof User) {
+				if (a instanceof User user) {
 					// writing to a single user
-					Item i = new Item(a.getKey(), ((User)a).getName());
+					Item i = new Item(a.getKey(), user.getName());
 					wr.getData().put(rcl.key(), new DropdownList(Collections.singletonList(i)));
-				} else if (a instanceof Chat) {
+				} else if (a instanceof Chat chat) {
 					wr.getData().put(rcl.key(), new DropdownList(
-						conversations.getChatMembers((Chat) a).stream()
+						conversations.getChatMembers(chat).stream()
 							.map(uu -> new Item(uu.getKey(), uu.getName()))
 							.collect(Collectors.toList())));
 				}

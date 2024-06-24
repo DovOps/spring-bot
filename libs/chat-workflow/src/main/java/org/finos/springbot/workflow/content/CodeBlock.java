@@ -23,8 +23,8 @@ public interface CodeBlock extends Content {
 
 		@Override
 		public boolean equals(Object obj) {
-			if (obj instanceof CodeBlock) {
-				return this.getText().equals(((CodeBlock) obj).getText());
+			if (obj instanceof CodeBlock block) {
+				return this.getText().equals(block.getText());
 			} else {
 				return false;
 			}

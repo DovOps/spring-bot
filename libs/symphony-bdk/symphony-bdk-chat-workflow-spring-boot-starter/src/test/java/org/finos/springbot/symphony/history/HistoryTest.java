@@ -69,7 +69,7 @@ public class HistoryTest {
 				Instant.now().minus(10, ChronoUnit.DAYS));
 		
 		Assertions.assertEquals(3, out.size());
-		Assertions.assertEquals(one, out.get(0));
+		Assertions.assertEquals(one, out.getFirst());
 		Assertions.assertEquals(two, out.get(1));
 		Assertions.assertEquals(three, out.get(2));
 		
