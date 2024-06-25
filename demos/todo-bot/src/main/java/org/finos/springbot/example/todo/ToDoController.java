@@ -1,10 +1,6 @@
 package org.finos.springbot.example.todo;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.finos.springbot.example.todo.ToDoItem.Status;
@@ -27,8 +23,7 @@ public class ToDoController {
 
 	@ChatRequest(value={"new", "nouveau"}, description = "Create new item list")
 	public ToDoList init() {
-		ToDoList out = new ToDoList();
-		return out;
+		return new ToDoList();
 	}
 	
 	private void reNumber(ToDoList l) {
@@ -57,8 +52,7 @@ public class ToDoController {
 	
 	@ChatButton(value = NewItemDetails.class, buttonText = "cancel")
 	public ToDoList cancel(Optional<ToDoList> toDo) {
-		ToDoList out = toDo.orElse(init());
-		return out;
+		return toDo.orElse(init());
 	}
 
 	@ChatRequest(value="show", description = "Show current list of items")
@@ -88,8 +82,8 @@ public class ToDoController {
 	
 	private Set<Integer> numbers(List<Word> m) {
 		return m.stream()
-			.map(w -> parseInt(w))
-			.filter(i -> i != null)
+			.map(this::parseInt)
+			.filter(Objects::nonNull)
 			.collect(Collectors.toSet());
 	}
 
@@ -108,7 +102,7 @@ public class ToDoController {
 	}
 
 	private List<Response> changeStatus(ToDoList on, List<Word> words, User u, Status s) {
-		List<Response> out = new ArrayList<Response>();
+		List<Response> out = new ArrayList<>();
 		Set<Integer> toUpdate = numbers(words);
 
 		on.getItems().stream()

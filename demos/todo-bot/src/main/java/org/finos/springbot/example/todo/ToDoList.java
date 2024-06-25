@@ -20,7 +20,7 @@ import org.finos.springbot.workflow.annotations.Work;
 public class ToDoList {
 
 	@Valid
-	private List<ToDoItem> items = new ArrayList<ToDoItem>();
+	private List<ToDoItem> items = new ArrayList<>();
 
 	public ToDoList() {
 		super();

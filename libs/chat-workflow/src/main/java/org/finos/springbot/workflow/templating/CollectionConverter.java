@@ -48,8 +48,7 @@ public class CollectionConverter<X> extends AbstractComplexTypeConverter<X> {
             @Override
             public X apply(Field f, boolean editMode, Variable variable, WithType<X> contentHandler) {
             	Type t = f.getGenericType();
-            	X out = contentHandler.apply(null, contentHandler, t, editMode, variable, null);
-            	return out;
+            	return contentHandler.apply(null, contentHandler, t, editMode, variable, null);
             }
         };
 
