@@ -25,8 +25,8 @@ public interface Word extends Content {
 
 			@Override
 			public boolean equals(Object obj) {
-				if (obj instanceof Word) {
-					return this.getIdentifier().equals(((Word) obj).getIdentifier());
+				if (obj instanceof Word word) {
+					return this.getIdentifier().equals(word.getIdentifier());
 				} else {
 					return false;
 				}

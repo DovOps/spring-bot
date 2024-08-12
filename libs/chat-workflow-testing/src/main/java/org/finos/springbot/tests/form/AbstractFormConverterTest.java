@@ -33,10 +33,10 @@ public abstract class AbstractFormConverterTest {
 		before();
 		Object o = new ObjectMapper().readValue("{\"action\":\"add+0\",\"items.[0].a.\":\"fd3442\",\"items.[0].b.\":\"true\",\"items.[0].c.\":\"43534\",\"items.[0].m.\":\"LUNCH\"}", Map.class);
 		Collection to = (Collection) fc.convert((Map<String, Object>) o, Collection.class.getCanonicalName());
-		Assertions.assertEquals("fd3442", to.getItems().get(0).getA());
-		Assertions.assertEquals(true, to.getItems().get(0).isB());
-		Assertions.assertEquals(43534, to.getItems().get(0).getC());
-		Assertions.assertEquals(Meal.LUNCH, to.getItems().get(0).getM());
+		Assertions.assertEquals("fd3442", to.getItems().getFirst().getA());
+		Assertions.assertEquals(true, to.getItems().getFirst().isB());
+		Assertions.assertEquals(43534, to.getItems().getFirst().getC());
+		Assertions.assertEquals(Meal.LUNCH, to.getItems().getFirst().getM());
 	}
 
 	

@@ -3,7 +3,6 @@ package org.finos.springbot.teams.state;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +12,7 @@ public class FileStateStorageUtility {
 
 	public static Optional<String> readFile(String filePath) {
 		try {
-			Path path = Paths.get(filePath);
+			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				List<String> lines = Files.readAllLines(path);
 				return Optional.of(String.join("", lines));
@@ -26,7 +25,7 @@ public class FileStateStorageUtility {
 	}
 
 	public static Path checkAndCreateFile(String file) throws IOException {
-		Path path = Paths.get(file);
+		Path path = Path.of(file);
 		if (Files.notExists(path)) {
 			Files.createFile(path);
 		}
@@ -34,7 +33,7 @@ public class FileStateStorageUtility {
 	}
 
 	public static Path checkAndCreateFolder(String pathStr) throws IOException {
-		Path path = Paths.get(pathStr);
+		Path path = Path.of(pathStr);
 		if (Files.notExists(path)) {
 			path = Files.createDirectory(path);
 		}

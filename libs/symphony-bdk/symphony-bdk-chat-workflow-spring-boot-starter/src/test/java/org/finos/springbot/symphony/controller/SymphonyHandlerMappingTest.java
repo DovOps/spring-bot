@@ -220,7 +220,7 @@ public class SymphonyHandlerMappingTest extends AbstractHandlerMappingTest {
 		execute("attachment");
 		List<Attachment> attachments = getAttachments();
 		Assertions.assertEquals(1, attachments.size());
-		Attachment first = attachments.get(0);
+		Attachment first = attachments.getFirst();
 		String contents = StreamUtils.copyToString(first.getContent(), StandardCharsets.UTF_8);
 		Assertions.assertEquals("payload", contents);
 	}
@@ -230,7 +230,7 @@ public class SymphonyHandlerMappingTest extends AbstractHandlerMappingTest {
 		execute("add @gaurav to <span class=\"entity\" data-entity-id=\"2\">#SomeTopic</span>");
 		Assertions.assertEquals("addUserToTopic", oc.lastMethod);
 		Assertions.assertEquals(2,  oc.lastArguments.size());
-		Object firstArgument = oc.lastArguments.get(0);
+		Object firstArgument = oc.lastArguments.getFirst();
 		Assertions.assertTrue(User.class.isAssignableFrom(firstArgument.getClass()));
 		Assertions.assertEquals("gaurav", ((User)firstArgument).getName());
 		

@@ -82,8 +82,8 @@ public class ChatButtonChatHandlerMapping extends AbstractSpringComponentHandler
 			
 			@Override
 			public ChatHandlerExecutor getExecutor(Action a) {
-				if (a instanceof FormAction) {
-					return matchesFormAction((FormAction)a);
+				if (a instanceof FormAction action) {
+					return matchesFormAction(action);
 				}
 				
 				return null;

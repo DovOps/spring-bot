@@ -47,18 +47,18 @@ public class ButtonsResponseHandler implements ResponseHandler<Void>, Applicatio
 
 	@Override
 	public Void apply(Response t) {
-		if (t instanceof WorkResponse) {
-			Object o = ((WorkResponse) t).getFormObject();
-			WorkMode wm = ((WorkResponse) t).getMode();
+		if (t instanceof WorkResponse response) {
+			Object o = response.getFormObject();
+			WorkMode wm = response.getMode();
 			
-			ButtonList obl = (ButtonList) ((WorkResponse) t).getData().get(ButtonList.KEY);
+			ButtonList obl = (ButtonList) response.getData().get(ButtonList.KEY);
 			
 			if ((obl != null) && (obl.getContents().size() > 0)) {
 				return null;
 			}
 			
 			obl = new ButtonList();
-			((WorkResponse) t).getData().put(ButtonList.KEY, obl);
+			response.getData().put(ButtonList.KEY, obl);
 			
 			
 			final ButtonList bl = obl;

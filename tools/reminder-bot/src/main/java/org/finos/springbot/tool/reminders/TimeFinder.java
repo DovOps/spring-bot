@@ -63,8 +63,8 @@ public class TimeFinder extends AbstractActionConsumer  {
 	@Override
 	public void accept(Action t) {
 		try {
-			if (t instanceof SimpleMessageAction) {
-				Message m = ((SimpleMessageAction) t).getMessage();
+			if (t instanceof SimpleMessageAction action) {
+				Message m = action.getMessage();
 				User currentUser = t.getUser();
 				Addressable a = t.getAddressable();
 				String messageInString = m.getText();

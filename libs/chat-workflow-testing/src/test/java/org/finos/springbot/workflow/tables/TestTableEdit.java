@@ -118,7 +118,7 @@ public class TestTableEdit {
 		WorkResponse fr = postAndGetResponse(ea, editRow);
 		Assertions.assertEquals(TestObject.class, fr.getFormClass());
 		TestObject formObject2 = (TestObject) fr.getFormObject();
-		Assertions.assertEquals(to.getItems().get(0), formObject2);
+		Assertions.assertEquals(to.getItems().getFirst(), formObject2);
 		Map<String, Object> returnedData = fr.getData();
 
 		
@@ -132,7 +132,7 @@ public class TestTableEdit {
 		fr = postAndGetResponse(ea, editRow);
 		Assertions.assertEquals(TestObjects.class, fr.getFormClass());
 		TestObjects out = (TestObjects) fr.getFormObject();
-		Assertions.assertEquals(out.getItems().get(0), newTo);
+		Assertions.assertEquals(out.getItems().getFirst(), newTo);
 	}
 	
 	@Test

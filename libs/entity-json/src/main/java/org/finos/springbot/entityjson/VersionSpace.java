@@ -54,8 +54,8 @@ public class VersionSpace {
 	}
 	
 	public boolean typeMatches(Object in) {
-		if (in instanceof Class) {
-			return typeMatches(((Class<?>) in).getName());
+		if (in instanceof Class<?> class1) {
+			return typeMatches(class1.getName());
 		} else {
 			return typeMatches(in.getClass());
 		}

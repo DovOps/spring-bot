@@ -19,8 +19,7 @@ public class HeaderTagResponseHandler implements ResponseHandler<Void> {
 	@Override
 	public Void apply(Response t) {
 
-		if (t instanceof WorkResponse) {
-			WorkResponse workResponse = (WorkResponse) t;
+		if (t instanceof WorkResponse workResponse) {
 
 			HeaderDetails hd = (HeaderDetails) workResponse.getData().get(HeaderDetails.KEY);
 			if (hd == null) {

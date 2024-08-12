@@ -72,22 +72,21 @@ public class SymphonyResponseHandler implements ResponseHandler<V4Message>, Appl
 			String template = null;
 			String filename = null;
 			
-			if (t instanceof AttachmentResponse) {
-				AttachmentResponse ar = (AttachmentResponse) t;
+			if (t instanceof AttachmentResponse ar) {
 				attachment = ar.getAttachment();
 				filename = ar.getName() + "." + ar.getExtension();
 			}
 		
 
-			if (t instanceof DataResponse) {
-				template = buildTemplate((DataResponse) t);
+			if (t instanceof DataResponse response) {
+				template = buildTemplate(response);
 				
 				if (template == null) {
 					LOG.error("Cannot determine/create template for response {}", t);
 					return null;
 				}
 
-				data = dataHandler.formatData((DataResponse) t);
+				data = dataHandler.formatData(response);
 				LOG.info("JSON: \n"+ data);
 
 				return sendResponse(template, attachment, data, t.getAddress(), filename);
@@ -98,10 +97,10 @@ public class SymphonyResponseHandler implements ResponseHandler<V4Message>, Appl
 	}
 	
 	protected String buildTemplate(DataResponse t) {
-		if (t instanceof MessageResponse) {
-			return messageTemplater.template((MessageResponse)t).getContents();
-		} else if (t instanceof WorkResponse) {
-			return workTemplater.template((WorkResponse) t);
+		if (t instanceof MessageResponse response) {
+			return messageTemplater.template(response).getContents();
+		} else if (t instanceof WorkResponse response) {
+			return workTemplater.template(response);
 		} else {
 			throw new SymphonyException("Can't template: "+t);
 		}
@@ -109,8 +108,8 @@ public class SymphonyResponseHandler implements ResponseHandler<V4Message>, Appl
 
 	protected V4Message sendResponse(String template, byte[] attachment, String data, Addressable address, String filename) {
 		try {
-			if (address instanceof SymphonyAddressable) {
-				String streamId = sr.getStreamFor((SymphonyAddressable) address);
+			if (address instanceof SymphonyAddressable addressable) {
+				String streamId = sr.getStreamFor(addressable);
 				MessageBuilder mb = Message.builder().content(template);
 
 				if (attachment != null) {

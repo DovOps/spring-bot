@@ -72,13 +72,13 @@ public class StateStorageBasedTeamsConversations extends AbstractTeamsConversati
 	public TeamsChat getChatById(String id) {
 		String file = id+"/addressable";
 		Optional<Map<String, Object>> data = tss.retrieve(file);
-		if (!data.isPresent()) {
+		if (data.isEmpty()) {
 			return null;
 		} else {
 			List<Map<String, Object>> list = Collections.singletonList(data.get());
 			List<TeamsChat> out =  StateStorageBasedTeamsHistory.findObjectsFromItems(TeamsChat.class, list);
 			if (out.size() > 0) {
-				return out.get(0);
+				return out.getFirst();
 			} else {
 				return null;
 			}
@@ -91,7 +91,7 @@ public class StateStorageBasedTeamsConversations extends AbstractTeamsConversati
 		
 		Optional<Map<String, Object>> data = tss.retrieve(file);
 		
-		if (!data.isPresent()) {
+		if (data.isEmpty()) {
 			Map<String, String> tags = new HashMap<>();
 			tags.put(ADDRESSABLE_INFO, TeamsStateStorage.PRESENT);
 			tags.put(ADDRESSABLE_TYPE, to instanceof Chat ? CHAT : USER);

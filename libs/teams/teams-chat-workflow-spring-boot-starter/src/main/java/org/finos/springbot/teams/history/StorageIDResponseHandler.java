@@ -30,8 +30,8 @@ public class StorageIDResponseHandler implements ResponseHandler<String> {
 
 	@Override
 	public String apply(Response t) {
-		if (t instanceof WorkResponse) {
-			Map<String, Object> data = ((WorkResponse) t).getData();
+		if (t instanceof WorkResponse response) {
+			Map<String, Object> data = response.getData();
 			if ((data != null) && (!data.containsKey(STORAGE_ID_KEY)) && (needsStoring(data))) {
 				String storageId = th.createStorageId();
 				data.put(STORAGE_ID_KEY, storageId);

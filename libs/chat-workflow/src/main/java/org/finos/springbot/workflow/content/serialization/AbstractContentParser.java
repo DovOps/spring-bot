@@ -110,8 +110,8 @@ public abstract class AbstractContentParser<T, U> implements BiFunction<T, U, Co
 
 		@Override
 		public void push(Content c) {
-			if (c instanceof Paragraph) {
-				contents.add((Paragraph) c);
+			if (c instanceof Paragraph paragraph) {
+				contents.add(paragraph);
 			} else {
 				throw new UnsupportedOperationException("Only <li> can appear in <" + qName + ">");
 			}
@@ -147,7 +147,7 @@ public abstract class AbstractContentParser<T, U> implements BiFunction<T, U, Co
 
 				@Override
 				public List<Content> getColumnNames() {
-					return contents.get(0);
+					return contents.getFirst();
 				}
 
 				@Override
@@ -157,9 +157,9 @@ public abstract class AbstractContentParser<T, U> implements BiFunction<T, U, Co
 
 				@Override
 				public boolean equals(Object obj) {
-					if (obj instanceof Table) {
-						return getData().equals(((Table) obj).getData())
-								&& getColumnNames().equals(((Table) obj).getColumnNames());
+					if (obj instanceof Table table) {
+						return getData().equals(table.getData())
+								&& getColumnNames().equals(table.getColumnNames());
 					} else {
 						return false;
 					}
@@ -180,7 +180,7 @@ public abstract class AbstractContentParser<T, U> implements BiFunction<T, U, Co
 
 		@Override
 		public void push(Content c) {
-			List<Content> lastRow = contents.get(contents.size() - 1);
+			List<Content> lastRow = contents.getLast();
 			lastRow.add(c);
 		}
 

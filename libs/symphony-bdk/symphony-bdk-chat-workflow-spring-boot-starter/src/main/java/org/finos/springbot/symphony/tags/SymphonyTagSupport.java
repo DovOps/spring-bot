@@ -49,8 +49,8 @@ public class SymphonyTagSupport extends TagSupport {
 	}
 	
 	public static Set<HashTag> classHashTags(Object in) {
-		if (in instanceof Class<?>) {
-			return toHashTags((Class<?>) in).stream()
+		if (in instanceof Class<?> class1) {
+			return toHashTags(class1).stream()
 					.collect(Collectors.toSet());
 		}
 		if (in != null) {

@@ -92,8 +92,7 @@ public class TeamsResponseHandler implements ResponseHandler<ResourceResponse>, 
 			TeamsAddressable ta = (TeamsAddressable) t.getAddress();
 
 			try {
-				if (t instanceof MessageResponse) {
-					MessageResponse mr = (MessageResponse)t;
+				if (t instanceof MessageResponse mr) {
 					Attachment attachment = null;
 					MarkupAndEntities mae = messageTemplater.template(mr);
 					String content = mae.getContents();
@@ -106,8 +105,7 @@ public class TeamsResponseHandler implements ResponseHandler<ResourceResponse>, 
 					return sendXMLResponse(content, attachment, ta, entities, mr.getData())
 						.handle(handleErrorAndStorage(content, ta, mr.getData(), t)).get();
 					
-				} else if (t instanceof WorkResponse) {
-					WorkResponse wr = (WorkResponse) t;
+				} else if (t instanceof WorkResponse wr) {
 					TemplateType tt = getTemplateType(wr);
  					 
 					if (tt == TemplateType.ADAPTIVE_CARD) {

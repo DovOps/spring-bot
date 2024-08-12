@@ -28,9 +28,8 @@ public class ChatListResponseHandler implements ResponseHandler<Void> {
 
 	@Override
 	public Void apply(Response t) {
-		if (t instanceof WorkResponse) {
-			WorkResponse wr = (WorkResponse) t;
-			Class<?> c = ((WorkResponse) t).getFormClass();
+		if (t instanceof WorkResponse wr) {
+			Class<?> c = wr.getFormClass();
 			
 			RequiresChatList rcl = c.getAnnotation(RequiresChatList.class);
 				

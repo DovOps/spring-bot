@@ -41,11 +41,9 @@ public class MeterRegistryConfig {
 		List<Tag> tags = new LinkedList<>();
 		Object[] args = pjp.getArgs();
 		Arrays.asList(args).stream().filter(Objects::nonNull).forEach(a -> {
-			if (a instanceof Chat) {
-				Chat room = (Chat) a;
+			if (a instanceof Chat room) {
 				tags.add(Tag.of("Chat", room.getName()));
-			} else if (a instanceof User) {
-				User user = (User) a;
+			} else if (a instanceof User user) {
 				tags.add(Tag.of("User", user.getName()));
 			}
 		});

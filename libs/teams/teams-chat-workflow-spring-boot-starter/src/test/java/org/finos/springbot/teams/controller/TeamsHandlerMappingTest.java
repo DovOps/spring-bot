@@ -125,7 +125,7 @@ public class TeamsHandlerMappingTest extends AbstractHandlerMappingTest {
 		Mockito.verify(conv).handleActivity(msg.capture(), Mockito.any());
 		Activity out = msg.getValue();
 		if (out.getAttachments().size() > 0) {
-			Attachment a1 = out.getAttachments().get(0);
+			Attachment a1 = out.getAttachments().getFirst();
 			
 			if (a1.getContent() instanceof String) {
 				return (String) a1.getContent();

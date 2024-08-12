@@ -143,8 +143,8 @@ public class MarkupWriter<C> implements BiFunction<Content, C, String> {
 
 		@Override
 		protected String getTagName(Content t) {
-			if (t instanceof Heading) {
-				return tag + ((Heading)t).getLevel();
+			if (t instanceof Heading heading) {
+				return tag + heading.getLevel();
 			} else {
 				return tag;
 			}

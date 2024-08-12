@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
@@ -59,7 +60,7 @@ public class FileActivityHandler extends MessageActivityHandler {
 		Map<String, String> context = (Map<String, String>) fileConsentCardResponse.getContext();
 
 		Activity reply = MessageFactory
-				.text(String.format("Declined. We won't upload file <b>%s</b>.", context.get("filename")));
+				.text("Declined. We won't upload file <b>%s</b>.".formatted(context.get("filename")));
 		reply.setTextFormat(TextFormatTypes.XML);
 
 		return turnContext.sendActivityBlind(reply);
@@ -76,7 +77,7 @@ public class FileActivityHandler extends MessageActivityHandler {
 
 			URLConnection connection = null;
 			try {
-				URL url = new URL(fileConsentCardResponse.getUploadInfo().getUploadUrl());
+				URL url = URI.create(fileConsentCardResponse.getUploadInfo().getUploadUrl()).toURL();
 				if (url.openConnection() instanceof HttpURLConnection) {
 					connection = (HttpURLConnection) url.openConnection();
 					((HttpURLConnection) connection).setRequestMethod("PUT");
@@ -84,7 +85,7 @@ public class FileActivityHandler extends MessageActivityHandler {
 					connection.setDoOutput(true);
 					connection.setRequestProperty("Content-Length", Long.toString(filePath.length()));
 					connection.setRequestProperty("Content-Range",
-							String.format("bytes 0-%d/%d", filePath.length() - 1, filePath.length()));
+							"bytes 0-%d/%d".formatted(filePath.length() - 1, filePath.length()));
 
 					try (FileInputStream fileStream = new FileInputStream(filePath);
 							OutputStream uploadStream = connection.getOutputStream()) {
@@ -115,8 +116,8 @@ public class FileActivityHandler extends MessageActivityHandler {
 			} finally {
 				if (connection != null) {
 
-					if (connection instanceof HttpURLConnection) {
-						((HttpURLConnection) connection).disconnect();
+					if (connection instanceof HttpURLConnection lConnection) {
+						lConnection.disconnect();
 					}
 				}
 			}
@@ -133,7 +134,7 @@ public class FileActivityHandler extends MessageActivityHandler {
 	}
 
 	private CompletableFuture<Void> fileDownloadCompleted(TurnContext turnContext, Attachment attachment) {
-		Activity reply = MessageFactory.text(String.format("<b>%s</b> received and saved.", attachment.getName()));
+		Activity reply = MessageFactory.text("<b>%s</b> received and saved.".formatted(attachment.getName()));
 		reply.setTextFormat(TextFormatTypes.XML);
 
 		return turnContext.sendActivityBlind(reply);
@@ -155,8 +156,8 @@ public class FileActivityHandler extends MessageActivityHandler {
 		asAttachment.setContentUrl(fileConsentCardResponse.getUploadInfo().getContentUrl());
 
 		Activity reply = MessageFactory
-				.text(String.format("<b>File uploaded.</b> Your file <b>%s</b> is ready to download",
-						fileConsentCardResponse.getUploadInfo().getName()));
+				.text("<b>File uploaded.</b> Your file <b>%s</b> is ready to download".formatted(
+				fileConsentCardResponse.getUploadInfo().getName()));
 		reply.setTextFormat(TextFormatTypes.XML);
 		reply.setAttachment(asAttachment);
 

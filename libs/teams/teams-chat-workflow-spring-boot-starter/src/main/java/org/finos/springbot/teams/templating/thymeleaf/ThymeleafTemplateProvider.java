@@ -64,8 +64,8 @@ public class ThymeleafTemplateProvider extends AbstractResourceTemplateProvider<
 	}
 	
 	public static boolean needsButtons(Response r) {
-		if (r instanceof WorkResponse) {
-			ButtonList bl = (ButtonList) ((WorkResponse) r).getData().get(ButtonList.KEY);
+		if (r instanceof WorkResponse response) {
+			ButtonList bl = (ButtonList) response.getData().get(ButtonList.KEY);
 			return (bl != null) && (bl.getContents().size() > 0);
 		} else {
 			return false;

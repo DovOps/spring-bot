@@ -37,7 +37,7 @@ public interface OrderedContent<C extends Content> extends Content, Iterable<C> 
 		}
 			
 		if (size() > 0) {
-			Content first = getContents().get(0);
+			Content first = getContents().getFirst();
 					
 			if (first.startsWith(item)) {
 				@SuppressWarnings("unchecked")
@@ -45,7 +45,7 @@ public interface OrderedContent<C extends Content> extends Content, Iterable<C> 
 				List<C> sublist = getContents().subList(1, size());
 				if (newFirst != null) {
 					sublist = new ArrayList<C>(sublist);
-					sublist.add(0, newFirst);
+					sublist.addFirst(newFirst);
 				}
 				return buildAnother(sublist);
 			}
@@ -81,7 +81,7 @@ public interface OrderedContent<C extends Content> extends Content, Iterable<C> 
 		}
 		
 		if (size() > 0) {
-			return getContents().get(0).startsWith(item);	
+			return getContents().getFirst().startsWith(item);	
 		}
 		
 		return false;

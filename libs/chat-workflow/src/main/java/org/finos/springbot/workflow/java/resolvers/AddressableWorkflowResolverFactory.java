@@ -28,8 +28,8 @@ public class AddressableWorkflowResolverFactory implements WorkflowResolverFacto
 		public Optional<Object> resolve(Class<?> cl) {
 			if (Chat.class.isAssignableFrom(cl)) {
 				Addressable a = che.action().getAddressable();
-				if (a instanceof Chat) {
-					return Optional.of((Chat) a);
+				if (a instanceof Chat chat) {
+					return Optional.of(chat);
 				}
 			} else if (User.class.isAssignableFrom(cl)) {
 				return Optional.of(che.action().getUser());

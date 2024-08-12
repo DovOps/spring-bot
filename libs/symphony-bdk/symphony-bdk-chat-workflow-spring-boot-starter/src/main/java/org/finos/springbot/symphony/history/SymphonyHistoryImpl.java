@@ -112,7 +112,7 @@ public class SymphonyHistoryImpl implements SymphonyHistory {
 	}
 
 	protected <T> Optional<T> getRelevantObject(Optional<EntityJson> ej, Class<T> required) {
-		if ((ej == null) || (!ej.isPresent())) {
+		if ((ej == null) || (ej.isEmpty())) {
 			return Optional.empty();
 		}
 
@@ -148,8 +148,8 @@ public class SymphonyHistoryImpl implements SymphonyHistory {
 
 	private <X> MessageSearchQuery createMessageSearchQuery(Class<X> type, Addressable address, Instant since, String t) {
 		MessageSearchQuery msq = new MessageSearchQuery();
-		if (address instanceof SymphonyAddressable) {
-			msq.setStreamId(sr.getStreamFor((SymphonyAddressable) address));
+		if (address instanceof SymphonyAddressable addressable) {
+			msq.setStreamId(sr.getStreamFor(addressable));
 		}
 
 		if (since != null) {

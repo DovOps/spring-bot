@@ -117,7 +117,7 @@ public class TestSerialization {
 		String json = getExpected("jira-example-1");
 		EntityJson ej = ejc.readValue(json);
 		Assertions.assertEquals("test@symphony.com", ((State) ej.get("jiraIssue")).issue.assignee.emailAddress);
-		Assertions.assertEquals("production", ((State) ej.get("jiraIssue")).issue.labels.get(0).text);
+		Assertions.assertEquals("production", ((State) ej.get("jiraIssue")).issue.labels.getFirst().text);
 		EntityJson ej2 = ejc.readValue(json);
 		Assertions.assertEquals(ej, ej2);
 		Assertions.assertEquals(ej.hashCode(), ej2.hashCode());
@@ -148,7 +148,7 @@ public class TestSerialization {
 		String json = getExpected("jira-example-2");
 		EntityJson ej = ejc.readValue(json);
 		Assertions.assertEquals("Issue Test", ((Created) ej.get("jiraIssueCreated")).issue.subject);
-		Assertions.assertEquals("123456", ((Mention) ej.get("mention123")).getId().get(0).getValue());
+		Assertions.assertEquals("123456", ((Mention) ej.get("mention123")).getId().getFirst().getValue());
 		
 		EntityJson ej2 = ejc.readValue(json);
 		Assertions.assertEquals(ej, ej2);
@@ -161,7 +161,7 @@ public class TestSerialization {
 	public void testJiraExample3() throws Exception {
 		String json = getExpected("jira-example-3");
 		EntityJson ej = ejc.readValue(json);
-		Assertions.assertEquals("production", ((V2Created) ej.get("jiraIssueCreated")).issue.labels.get(0).text);
+		Assertions.assertEquals("production", ((V2Created) ej.get("jiraIssueCreated")).issue.labels.getFirst().text);
 		Assertions.assertEquals("bot.user2", ((V2Created) ej.get("jiraIssueCreated")).issue.assignee.username);
 		EntityJson ej2 = ejc.readValue(json);
 		Assertions.assertEquals(ej, ej2);
@@ -175,8 +175,8 @@ public class TestSerialization {
 		String jsonIn = getExpected("securities-in");
 		String jsonOut = getExpected("securities-out");
 		EntityJson ej = ejc.readValue(jsonIn);
-		Assertions.assertEquals("US0378331005", ((Security) ej.get("123")).getId().get(0).getValue());
-		Assertions.assertEquals("BBG00CSTXNX6", ((Security) ej.get("321")).getId().get(0).getValue());
+		Assertions.assertEquals("US0378331005", ((Security) ej.get("123")).getId().getFirst().getValue());
+		Assertions.assertEquals("BBG00CSTXNX6", ((Security) ej.get("321")).getId().getFirst().getValue());
 		EntityJson ej2 = ejc.readValue(jsonIn);
 		Assertions.assertEquals(ej, ej2);
 		Assertions.assertEquals(ej.hashCode(), ej2.hashCode());

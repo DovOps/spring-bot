@@ -10,8 +10,8 @@ import org.finos.springbot.workflow.annotations.Work;
 public class TagSupport {
 	
 	public static Set<String> classTags(Object in) {
-		if (in instanceof Class<?>) {
-			return toTags((Class<?>) in).stream()
+		if (in instanceof Class<?> class1) {
+			return toTags(class1).stream()
 					.collect(Collectors.toSet());
 		}
 		if (in != null) {

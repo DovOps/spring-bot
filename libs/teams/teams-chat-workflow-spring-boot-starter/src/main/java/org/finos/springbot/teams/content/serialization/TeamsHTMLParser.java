@@ -127,10 +127,10 @@ public class TeamsHTMLParser extends AbstractContentParser<String, ParseContext>
 			
 			@Override
 			public void head(Node node, int depth) {
-				if (node instanceof Element) {
-					startElement(((Element)node).tagName(), node.attributes());
-				} else if (node instanceof TextNode) {
-					characters(((TextNode) node).getWholeText());
+				if (node instanceof Element element) {
+					startElement(element.tagName(), node.attributes());
+				} else if (node instanceof TextNode textNode) {
+					characters(textNode.getWholeText());
 				}
 			}
 				
@@ -156,8 +156,8 @@ public class TeamsHTMLParser extends AbstractContentParser<String, ParseContext>
 				} else if (isImage(qName, attributes)) {
 					top.push(Image.of(attributes.get("src"), attributes.get("alt")));
 				} else if (isStartRow(qName, attributes)) {
-					if (top instanceof TableFrame) {
-						((TableFrame)top).newRow();
+					if (top instanceof TableFrame frame) {
+						frame.newRow();
 					} else {
 						throw new UnsupportedOperationException();
 					}
@@ -170,8 +170,8 @@ public class TeamsHTMLParser extends AbstractContentParser<String, ParseContext>
 			
 			@Override
 			public void tail(Node node, int depth) {
-				if (node instanceof Element) {
-					endElement(((Element) node).tagName());
+				if (node instanceof Element element) {
+					endElement(element.tagName());
 				} 
 			}
 			
@@ -232,8 +232,8 @@ public class TeamsHTMLParser extends AbstractContentParser<String, ParseContext>
 			}
 
 			public void characters(String s) {
-				if (top instanceof TextFrame) {
-					((TextFrame<?>) top).push(s);
+				if (top instanceof TextFrame<?> frame) {
+					frame.push(s);
 				} else {
 					if (!s.trim().isEmpty()) {
 						throw new UnsupportedOperationException("Wasn't expecting text: "+s);

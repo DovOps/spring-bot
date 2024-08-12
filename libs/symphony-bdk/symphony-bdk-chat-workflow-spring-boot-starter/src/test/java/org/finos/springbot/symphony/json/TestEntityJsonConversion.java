@@ -109,7 +109,7 @@ public class TestEntityJsonConversion {
 		
 		HeaderDetails hd = (HeaderDetails) ej.get(HeaderDetails.KEY);
 		Assertions.assertEquals(3, hd.getTags().size());
-		Assertions.assertEquals("symphony-workflow", hd.getTags().get(0));
+		Assertions.assertEquals("symphony-workflow", hd.getTags().getFirst());
 	}
 
 	@Test
@@ -118,39 +118,41 @@ public class TestEntityJsonConversion {
 		EJTestObject a1 = new EJTestObject(new SymphonyRoom("abc", "123"), new SymphonyUser("Robert Moffat", "rbo@kjite9.com"), "SOme message");
 		String out =  toWorkflowJson(a1);
 
-		compare(out, "{\n"
-				+ "  \"workflow_001\" : {\n"
-				+ "    \"type\" : \"org.finos.symphony.toolkit.workflow.fixture.eJTestObject\",\n"
-				+ "    \"version\" : \"1.0\",\n"
-				+ "    \"r\" : {\n"
-				+ "      \"type\" : \"org.finos.symphony.toolkit.workflow.content.chat\",\n"
-				+ "      \"version\" : \"1.0\",\n"
-				+ "      \"id\" : [ {\n"
-				+ "        \"type\" : \"com.symphony.user.streamID\",\n"
-				+ "        \"version\" : \"1.0\",\n"
-				+ "        \"value\" : \"123\"\n"
-				+ "      }, {\n"
-				+ "        \"type\" : \"org.finos.symphony.toolkit.workflow.sources.symphony.content.roomName\",\n"
-				+ "        \"version\" : \"1.0\",\n"
-				+ "        \"value\" : \"abc\"\n"
-				+ "      } ]\n"
-				+ "    },\n"
-				+ "    \"u\" : {\n"
-				+ "      \"type\" : \"com.symphony.user.mention\",\n"
-				+ "      \"version\" : \"1.0\",\n"
-				+ "      \"id\" : [ null, {\n"
-				+ "        \"type\" : \"com.symphony.user.displayName\",\n"
-				+ "        \"version\" : \"1.0\",\n"
-				+ "        \"value\" : \"Robert Moffat\"\n"
-				+ "      }, {\n"
-				+ "        \"type\" : \"com.symphony.user.emailAddress\",\n"
-				+ "        \"version\" : \"1.0\",\n"
-				+ "        \"value\" : \"rbo@kjite9.com\"\n"
-				+ "      } ]\n"
-				+ "    },\n"
-				+ "    \"someText\" : \"SOme message\"\n"
-				+ "  }\n"
-				+ "}");
+		compare(out, """
+				{
+				  "workflow_001" : {
+				    "type" : "org.finos.symphony.toolkit.workflow.fixture.eJTestObject",
+				    "version" : "1.0",
+				    "r" : {
+				      "type" : "org.finos.symphony.toolkit.workflow.content.chat",
+				      "version" : "1.0",
+				      "id" : [ {
+				        "type" : "com.symphony.user.streamID",
+				        "version" : "1.0",
+				        "value" : "123"
+				      }, {
+				        "type" : "org.finos.symphony.toolkit.workflow.sources.symphony.content.roomName",
+				        "version" : "1.0",
+				        "value" : "abc"
+				      } ]
+				    },
+				    "u" : {
+				      "type" : "com.symphony.user.mention",
+				      "version" : "1.0",
+				      "id" : [ null, {
+				        "type" : "com.symphony.user.displayName",
+				        "version" : "1.0",
+				        "value" : "Robert Moffat"
+				      }, {
+				        "type" : "com.symphony.user.emailAddress",
+				        "version" : "1.0",
+				        "value" : "rbo@kjite9.com"
+				      } ]
+				    },
+				    "someText" : "SOme message"
+				  }
+				}\
+				""");
 		EJTestObject b = (EJTestObject) readWorkflowValue(out);
 		Assertions.assertEquals(a1, b);
 	}

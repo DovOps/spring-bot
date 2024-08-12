@@ -136,8 +136,8 @@ public abstract class AbstractSpringComponentHandlerMapping<T> extends Applicati
 	 * @see #getMappingForMethod
 	 */
 	protected void detectHandlerMethods(Object handler) {
-		Class<?> handlerType = (handler instanceof String ?
-				obtainApplicationContext().getType((String) handler) : handler.getClass());
+		Class<?> handlerType = (handler instanceof String s ?
+				obtainApplicationContext().getType(s) : handler.getClass());
 
 		if (handlerType != null) {
 			Class<?> userType = ClassUtils.getUserClass(handlerType);
@@ -303,15 +303,15 @@ public abstract class AbstractSpringComponentHandlerMapping<T> extends Applicati
 	
 
 	protected boolean canBePerformed(Addressable a, User u, String[] excludeRooms, String[] includeRooms, boolean isAdmin) {
-		if ((a instanceof Chat) && (excludeRooms.length > 0)) {
-			if (roomMatched(excludeRooms, (Chat) a)) {
+		if ((a instanceof Chat chat) && (excludeRooms.length > 0)) {
+			if (roomMatched(excludeRooms, chat)) {
 				return false;
 			}
 		}
 
 		if (includeRooms.length > 0) {
-			if (a instanceof Chat) {
-				if (!roomMatched(includeRooms, (Chat) a)) {
+			if (a instanceof Chat chat) {
+				if (!roomMatched(includeRooms, chat)) {
 					return false;
 				} 
 			} else {
@@ -319,8 +319,8 @@ public abstract class AbstractSpringComponentHandlerMapping<T> extends Applicati
 			}
 		}
 
-		if (isAdmin && (a instanceof Chat)) {
-			List<User> chatAdmins = conversations.getChatAdmins((Chat) a);
+		if (isAdmin && (a instanceof Chat chat)) {
+			List<User> chatAdmins = conversations.getChatAdmins(chat);
 			return chatAdmins.contains(u);
 		} else {
 			return true;

@@ -156,8 +156,8 @@ public abstract class AbstractTeamsConversations implements TeamsConversations {
 
 	@Override
 	public ConversationAccount getConversationAccount(TeamsAddressable address) {
-		if (address instanceof TeamsUser) {
-			String chatForUser = getOneToOneConversationId((TeamsUser) address);
+		if (address instanceof TeamsUser user) {
+			String chatForUser = getOneToOneConversationId(user);
 			ConversationAccount ca = new ConversationAccount(chatForUser);
 			ca.setTenantId(mac.getChannelAuthTenant());
 			ca.setConversationType("personal");

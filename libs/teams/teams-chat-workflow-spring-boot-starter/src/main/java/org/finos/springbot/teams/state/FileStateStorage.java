@@ -288,7 +288,7 @@ public class FileStateStorage extends AbstractStateStorage {
 	private String getAddressable(String file) {
 		Optional<List<String>> split = splitString(file);
 		if (split.isPresent()) {
-			return getAzurePath(split.get().get(0));
+			return getAzurePath(split.get().getFirst());
 		}
 		return file;
 	}

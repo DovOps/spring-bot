@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,9 +34,9 @@ public class FileStateStorageTest extends AbstractStateStorageTest {
 	@BeforeEach
 	public void setup() throws IOException {
 		cleanUp();
-		Path path = Paths.get(tmpdir);
+		Path path = Path.of(tmpdir);
 		if (Files.notExists(path)) {
-			Files.createDirectory(Paths.get(tmpdir));
+			Files.createDirectory(Path.of(tmpdir));
 		}
 		this.tss = new FileStateStorage(ejc, tmpdir);
 	}
@@ -55,7 +54,7 @@ public class FileStateStorageTest extends AbstractStateStorageTest {
 	
 	@AfterEach
 	public void cleanUp() throws IOException {
-		Path path = Paths.get(tmpdir);
+		Path path = Path.of(tmpdir);
 		if (Files.exists(path)) {
 			FileUtils.deleteDirectory(new File(tmpdir));
 		}

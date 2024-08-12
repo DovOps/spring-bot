@@ -8,9 +8,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class ReminderProperties {
 	
 	private String welcomeMessage = 
-					  "Welcome!\n"
-					+ "I am the Reminder Bot. If you mention a date or time in your chat message , I will suggest creating a reminder for it.\n"
-					+ "type /help for help and /list to see existing reminders.";
+					  """
+					  Welcome!
+					  I am the Reminder Bot. If you mention a date or time in your chat message , I will suggest creating a reminder for it.
+					  type /help for help and /list to see existing reminders.\
+					  """;
 
 	public String getWelcomeMessage() {
 		return welcomeMessage;

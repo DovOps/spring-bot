@@ -73,7 +73,7 @@ public abstract class AbstractHandlerMappingTest {
 		execute("ban zebedee");
 		Assertions.assertEquals("banWord", oc.lastMethod);
 		Assertions.assertEquals(1,  oc.lastArguments.size());
-		Assertions.assertEquals(Word.of("zebedee"),oc.lastArguments.get(0));
+		Assertions.assertEquals(Word.of("zebedee"),oc.lastArguments.getFirst());
 	}
 	
 	@Test
@@ -81,7 +81,7 @@ public abstract class AbstractHandlerMappingTest {
 		execute("list");
 		Assertions.assertEquals("doCommand", oc.lastMethod);
 		Assertions.assertEquals(1,  oc.lastArguments.size());
-		Assertions.assertTrue(Message.class.isAssignableFrom(oc.lastArguments.get(0).getClass()));
+		Assertions.assertTrue(Message.class.isAssignableFrom(oc.lastArguments.getFirst().getClass()));
 	}
 	
 	@Test
@@ -101,7 +101,7 @@ public abstract class AbstractHandlerMappingTest {
 		execute("ban gaurav");
 		Assertions.assertEquals("banWord", oc.lastMethod);
 		Assertions.assertEquals(1,  oc.lastArguments.size());
-		Object firstArgument = oc.lastArguments.get(0);
+		Object firstArgument = oc.lastArguments.getFirst();
 		Assertions.assertTrue(Word.class.isAssignableFrom(firstArgument.getClass()));
 		Assertions.assertEquals("gaurav", ((Word)firstArgument).getText());
 	}
@@ -111,7 +111,7 @@ public abstract class AbstractHandlerMappingTest {
 		execute("userDetails2 @gaurav");
 		Assertions.assertEquals("userDetails2", oc.lastMethod);
 		Assertions.assertEquals(2,  oc.lastArguments.size());
-		Object firstArgument = oc.lastArguments.get(0);
+		Object firstArgument = oc.lastArguments.getFirst();
 		Assertions.assertTrue(User.class.isAssignableFrom(firstArgument.getClass()));
 		Assertions.assertEquals("gaurav", ((User)firstArgument).getName());
 		
@@ -125,7 +125,7 @@ public abstract class AbstractHandlerMappingTest {
 		execute("delete @gaurav");
 		Assertions.assertEquals("removeUserFromRoom", oc.lastMethod);
 		Assertions.assertEquals(2,  oc.lastArguments.size());
-		Object firstArgument = oc.lastArguments.get(0);
+		Object firstArgument = oc.lastArguments.getFirst();
 		Assertions.assertTrue(User.class.isAssignableFrom(firstArgument.getClass()));
 		Assertions.assertEquals("gaurav", ((User)firstArgument).getName());
 		
@@ -141,7 +141,7 @@ public abstract class AbstractHandlerMappingTest {
 		execute("update <pre>public static void main(String[] args) {}</pre>");
 		Assertions.assertEquals("process2", oc.lastMethod);
 		Assertions.assertEquals(1,  oc.lastArguments.size());
-		Object firstArgument = oc.lastArguments.get(0);
+		Object firstArgument = oc.lastArguments.getFirst();
 		Assertions.assertTrue(CodeBlock.class.isAssignableFrom(firstArgument.getClass()));
 		Assertions.assertEquals("public static void main(String[] args) {}", ((CodeBlock)firstArgument).getText());
 	}
@@ -160,7 +160,7 @@ public abstract class AbstractHandlerMappingTest {
 		execute("update <code>public <a href=\"sfdkjfh\">nonsense</a>static void main(String[] args) {}</code>");
 		Assertions.assertEquals("process2", oc.lastMethod);
 		Assertions.assertEquals(1,  oc.lastArguments.size());
-		Object firstArgument = oc.lastArguments.get(0);
+		Object firstArgument = oc.lastArguments.getFirst();
 		Assertions.assertTrue(CodeBlock.class.isAssignableFrom(firstArgument.getClass()));
 		Assertions.assertEquals("public static void main(String[] args) {}", ((CodeBlock)firstArgument).getText());
 	}
@@ -169,20 +169,22 @@ public abstract class AbstractHandlerMappingTest {
 
 	@Test
 	public void testTableMapping() throws Exception {
-		execute("process-table <table>\n"
-				+ "      <tr>\n"
-				+ "        <th>Thing</th><th>Thang</th>\n"
-				+ "      </tr>\n"
-				+ "      <tr>\n"
-				+ "        <td>1</td><td>2</td>\n"
-				+ "      </tr>\n"
-				+ "      <tr>\n"
-				+ "        <td>3</td><td>4</td>\n"
-				+ "      </tr>\n"
-				+ "  </table> @gaurav");
+		execute("""
+				process-table <table>
+				      <tr>
+				        <th>Thing</th><th>Thang</th>
+				      </tr>
+				      <tr>
+				        <td>1</td><td>2</td>
+				      </tr>
+				      <tr>
+				        <td>3</td><td>4</td>
+				      </tr>
+				  </table> @gaurav\
+				""");
 		Assertions.assertEquals("process-table", oc.lastMethod);
 		Assertions.assertEquals(2,  oc.lastArguments.size());
-		Table firstArgument = (Table) oc.lastArguments.get(0);
+		Table firstArgument = (Table) oc.lastArguments.getFirst();
 		List<Paragraph> expected = Arrays.asList(Paragraph.of("thing"), Paragraph.of("thang"));
 		Assertions.assertEquals(expected, firstArgument.getColumnNames());
 		Assertions.assertEquals(2, firstArgument.getData().size());
@@ -230,7 +232,7 @@ public abstract class AbstractHandlerMappingTest {
 		Object firstArgument = oc.lastArguments.get(1);
 		Assertions.assertEquals("gaurav", ((Optional<User>)firstArgument).get().getName());
 		
-		Object secondArgument = oc.lastArguments.get(0);
+		Object secondArgument = oc.lastArguments.getFirst();
 		Assertions.assertEquals(secondArgument, Arrays.asList(Word.of("zib"), Word.of("zab"), Word.of("zob")));
 		
 		Object thirdArgument = oc.lastArguments.get(2);
@@ -242,7 +244,7 @@ public abstract class AbstractHandlerMappingTest {
 		execute("optionals");
 		Assertions.assertEquals("doList", oc.lastMethod);
 		Assertions.assertEquals(3,  oc.lastArguments.size());
-		Object firstArgument = oc.lastArguments.get(0);
+		Object firstArgument = oc.lastArguments.getFirst();
 		Assertions.assertTrue(firstArgument instanceof List);
 		Assertions.assertEquals(0, ((List<?>)firstArgument).size());
 		
@@ -265,7 +267,7 @@ public abstract class AbstractHandlerMappingTest {
 		
 		pressButton(OurController.class.getName()+"-startNewClaim", form);
 		Assertions.assertEquals("startNewClaim", oc.lastMethod);
-		StartClaim sc = (StartClaim) oc.lastArguments.get(0);
+		StartClaim sc = (StartClaim) oc.lastArguments.getFirst();
 		Assertions.assertEquals(45f, sc.amount);
 		Assertions.assertEquals("desc", sc.description);
 		

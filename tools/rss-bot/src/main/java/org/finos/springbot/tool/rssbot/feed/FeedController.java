@@ -90,8 +90,8 @@ public class FeedController {
 	 */
 	private void adminCheck(User author, Addressable a, FeedList fl) {
 		if (fl.adminOnly) {
-			if (a instanceof Chat) {
-				if (!r.getChatAdmins((Chat) a).contains(author)) {
+			if (a instanceof Chat chat) {
+				if (!r.getChatAdmins(chat).contains(author)) {
 					throw new RuntimeException("You need to be admin of this room to modify the feed list");
 				}
 			}

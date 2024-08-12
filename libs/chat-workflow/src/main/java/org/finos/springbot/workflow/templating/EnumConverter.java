@@ -14,7 +14,7 @@ public class EnumConverter<X> extends AbstractSimpleTypeConverter<X> {
 
 	@Override
 	public boolean canConvert(Field ctx, Type t) {
-		return (t instanceof Class) && ((Class<?>) t).isEnum();
+		return (t instanceof Class<?> c) && c.isEnum();
 	}
 
 	@SuppressWarnings("unchecked")
